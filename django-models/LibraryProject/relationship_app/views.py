@@ -52,6 +52,29 @@ def edit_book(request, pk):
     return render(request, 'relationship_app/edit_book.html', {'book': book})
 
 
+from django.contrib.auth.decorators import user_passes_test
+
+def is_admin(user):
+    return hasattr(user, 'userprofile') and user.userprofile.role == 'Admin'
+
+@user_passes_test(is_admin)
+def admin_view(request):
+    return render(request, 'relationship_app/admin_view.html')
+
+def is_admin(user):
+    return hasattr(user, 'userprofile') and user.userprofile.role == 'Admin'
+
+@user_passes_test(is_admin)
+def admin_view(request):
+    return render(request, 'relationship_app/admin_view.html')
+
+def is_member(user):
+    return hasattr(user, 'userprofile') and user.userprofile.role == 'Member'
+
+@user_passes_test(is_member)
+def member_view(request):
+    return render(request, 'relationship_app/member_view.html')
+
 @permission_required('relationship_app.can_delete_book')
 def delete_book(request, pk):
     book = get_object_or_404(Book, pk=pk)
