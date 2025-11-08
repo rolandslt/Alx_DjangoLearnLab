@@ -4,6 +4,10 @@ from django.shortcuts import render
 from .models import Book
 from .models import Library
 
+from django.contrib.auth.forms import UserCreationForm
+from django.urls import resolvers_lazy
+from django.views.generic import CreateView
+
 from django.views.generic.detail import DetailView
 
 def list_books(request):
@@ -18,3 +22,10 @@ class LibraryDetailView(DetailView):
 
     def get_queryset(self):
         return super().get_queryset().prefetch_related('books_author')
+    
+class SignUpView(CreateView):
+    form_class = UserCreationForm
+    success_url = resolvers_lazy('login')
+    template_name = 'relationship_app/register.html'
+
+
