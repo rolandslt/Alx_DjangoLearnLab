@@ -17,5 +17,5 @@ for book in books_in_library:
     print("-", book.title)
 
 # 3. Retrieve the librarian for a library
-librarian = Librarian.objects.grt(library="")
+librarian = Librarian.objects.get(library=library)
 print(library.librarian.name)
