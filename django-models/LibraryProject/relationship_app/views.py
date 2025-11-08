@@ -24,7 +24,7 @@ class LibraryDetailView(DetailView):
     def get_queryset(self):
         return super().get_queryset().prefetch_related('books_author')
     
-class SignUpView(CreateView):
+class register(CreateView):
     form_class = UserCreationForm
     success_url = resolvers_lazy('login')
     template_name = 'relationship_app/register.html'
