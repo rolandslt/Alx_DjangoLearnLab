@@ -1,7 +1,7 @@
 from relationship_app.models import Author, Library, Book, Librarian
 
-author_name = "J.K Rowling"
-library_name ="central library"
+author_name = input("Enter the author name")
+library_name =input("Enter the  library name")
 # 1. Query all books by a specific author
 author = Author.objects.get(name=author_name)
 books_by_author = Book.objects.filter(author=author)  # use .all() on related_name
