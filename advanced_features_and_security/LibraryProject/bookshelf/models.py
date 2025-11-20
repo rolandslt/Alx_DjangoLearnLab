@@ -7,7 +7,7 @@ class Book(models.Model):
     publication_year = models.IntegerField()
 
 
-class CustomUserManager(BaseUserManager):
+class CustomUserAdmin(BaseUserManager):
     def create_user(self, username, email, password=None, **extra_fields):
         user = self.model(
             username=username,
@@ -27,4 +27,4 @@ class CustomUser(AbstractUser):
     date_of_birth = models.DateField(null=True, blank=True)
     profile_photo = models.ImageField(upload_to='profile_photos/', null=True, blank=True)
 
-    objects = CustomUserManager()
+    objects = CustomUserAdmin()
