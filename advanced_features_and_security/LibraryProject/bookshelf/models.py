@@ -28,3 +28,16 @@ class CustomUser(AbstractUser):
     profile_photo = models.ImageField(upload_to='profile_photos/', null=True, blank=True)
 
     objects = CustomUserManager()
+
+
+class Article(models.Model):
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+
+    class Meta:
+        permissions = [
+            ("can_view", "can view article"),
+            ("can_create", "can create article"),
+            ("can_edit", "can edit article"),
+            ("can_delete", "can delete article"),
+        ]
