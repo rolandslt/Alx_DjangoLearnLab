@@ -7,7 +7,7 @@ from .models import Article, Book
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from django.views.decorators.csrf import csrf_protect
-from .forms import ArticleForm
+from .forms import ExampleForm
 @login_required
 def book_list(request):
     books = Book.objects.all()
@@ -27,22 +27,22 @@ def article_list(request):
 @csrf_protect
 def article_create(request):
     if request.method == "POST":
-        form = ArticleForm(request.POST)
+        form = ExampleForm(request.POST)
         if form.is_valid():  # Input is validated
             form.save()
     else:
-        form = ArticleForm()
+        form = ExampleForm()
     return render(request, "article_create.html", {"form": form})
 
 @csrf_protect
 def article_edit(request, id):
     article = get_object_or_404(Article, id=id)
     if request.method == "POST":
-        form = ArticleForm(request.POST, instance=article)
+        form = ExampleForm(request.POST, instance=article)
         if form.is_valid():
             form.save()
     else:
-        form = ArticleForm(instance=article)
+        form = ExampleForm(instance=article)
     return render(request, "article_edit.html", {"form": form})
 
 @csrf_protect
