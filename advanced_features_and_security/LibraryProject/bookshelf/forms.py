@@ -1,11 +1,10 @@
 from django import forms
 from .models import Article
 
-class ArticleForm(forms.ModelForm):
+from django import forms
+from .models import Article  # or any model you want the form for
+
+class ExampleForm(forms.ModelForm):
     class Meta:
-        model = Article
-        fields = ['title', 'content']
-        widgets = {
-            'title': forms.TextInput(attrs={'maxlength': 255}),
-            'content': forms.Textarea(attrs={'maxlength': 5000}),
-        }
+        model = Article  # replace with your model if different
+        fields = ['title', 'content']  # include the fields you want in the f
