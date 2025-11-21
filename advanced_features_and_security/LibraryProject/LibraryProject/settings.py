@@ -134,3 +134,32 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 # Cookie security
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
+
+# ====== HTTPS Redirect & HSTS Settings ======
+# Redirect all HTTP requests to HTTPS
+SECURE_SSL_REDIRECT = True
+
+# HTTP Strict Transport Security (HSTS)
+# Instructs browsers to only use HTTPS for the site for the specified time (1 year here)
+SECURE_HSTS_SECONDS = 31536000  
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # Apply HSTS to all subdomains
+SECURE_HSTS_PRELOAD = True  # Allow preloading in browsers' HSTS lists
+
+# ====== Secure Cookies ======
+# Ensure session cookies are only sent over HTTPS
+SESSION_COOKIE_SECURE = True
+# Ensure CSRF cookies are only sent over HTTPS
+CSRF_COOKIE_SECURE = True
+
+# ====== Additional Security Headers ======
+# Prevent your site from being embedded in frames (clickjacking protection)
+X_FRAME_OPTIONS = 'DENY'
+# Prevent MIME type sniffing
+SECURE_CONTENT_TYPE_NOSNIFF = True
+# Enable browser XSS filter
+SECURE_BROWSER_XSS_FILTER = True
+
+# ====== Notes ======
+# - Ensure your deployment environment (e.g., Nginx, Apache) is configured with SSL/TLS certificates.
+# - For development/testing on localhost, you may temporarily set SECURE_SSL_REDIRECT = False.
+# - Review all security settings when deploying to production.
