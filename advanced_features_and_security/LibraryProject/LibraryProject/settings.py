@@ -27,14 +27,6 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['localhost', '172.0.01']
 
-# Browser protections
-SECURE_BROWSER_XXS_FILTER = True
-x_FRAME_OPTIONS = 'DENY'
-SECURE_CONTENT_TYPE_NOSNIFF = True
-
-# Cookie security
-CSRF_COOKIE_SECURE =True
-SESSION_COOKIE_SECURE = True
 
 # Application definition
 
@@ -133,3 +125,12 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = "bookshelf.CustomUser"
+
+# Browser-side protections
+SECURE_BROWSER_XSS_FILTER = True
+X_FRAME_OPTIONS = 'DENY'
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# Cookie security
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
