@@ -3,8 +3,18 @@ from django.shortcuts import render
 # Create your views here.
 from django.shortcuts import render
 from django.contrib.auth.decorators import permission_required
-from .models import Article
+from .models import Article, Book
+from django.contrib.auth.decorators import login_required
 
+
+@login_required
+def book_list(request):
+    books = Book.objects.all()
+    return render(request, "bookshelf/book_list.html", {"books": books})
+
+@login_required
+def books(request):
+    return render(request, "bookshelf/books.html")
 
 @permission_required('your_app_name.can_view', raise_exception=True)
 def article_list(request):
