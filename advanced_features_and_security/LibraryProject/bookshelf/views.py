@@ -5,8 +5,9 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import permission_required
 from .models import Article, Book
 from django.contrib.auth.decorators import login_required
-
-
+from django.shortcuts import render, get_object_or_404
+from django.views.decorators.csrf import csrf_protect
+from .forms import ArticleForm
 @login_required
 def book_list(request):
     books = Book.objects.all()
@@ -16,22 +17,37 @@ def book_list(request):
 def books(request):
     return render(request, "bookshelf/books.html")
 
-@permission_required('your_app_name.can_view', raise_exception=True)
+@csrf_protect
 def article_list(request):
-    articles = Article.objects.all()
+    # Safe query using ORM (prevents SQL injection)
+    search_query = request.GET.get("q", "")
+    articles = Article.objects.filter(title__icontains=search_query)
     return render(request, "article_list.html", {"articles": articles})
 
-
-@permission_required('your_app_name.can_create', raise_exception=True)
+@csrf_protect
 def article_create(request):
-    return render(request, "article_create.html")
+    if request.method == "POST":
+        form = ArticleForm(request.POST)
+        if form.is_valid():  # Input is validated
+            form.save()
+    else:
+        form = ArticleForm()
+    return render(request, "article_create.html", {"form": form})
 
-
-@permission_required('your_app_name.can_edit', raise_exception=True)
+@csrf_protect
 def article_edit(request, id):
-    return render(request, "article_edit.html")
+    article = get_object_or_404(Article, id=id)
+    if request.method == "POST":
+        form = ArticleForm(request.POST, instance=article)
+        if form.is_valid():
+            form.save()
+    else:
+        form = ArticleForm(instance=article)
+    return render(request, "article_edit.html", {"form": form})
 
-
-@permission_required('your_app_name.can_delete', raise_exception=True)
+@csrf_protect
 def article_delete(request, id):
-    return render(request, "article_delete.html")
+    article = get_object_or_404(Article, id=id)
+    if request.method == "POST":
+        article.delete()
+    return render(request, "article_delete.html", {"article": article})
