@@ -8,8 +8,10 @@ from django.contrib import messages
 from django.shortcuts import get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from .models import Post , Comment
+from .models import Post , Comment, Tag
 from .forms import PostForm, CommentForm
+from django.views.generic import ListView
+from django.db.models import Q
 # Create your views here.
 # Profile form to edit username and email
 class UserProfileForm(forms.ModelForm):
@@ -118,3 +120,23 @@ class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         comment = self.get_object()
         return self.request.user == comment.author
+    
+class SearchResultsView(ListView):
+    model = Post
+    template_name = 'blog/search_results.html'
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        return Post.objects.filter(
+            Q(title__icontains=query) | 
+            Q(content__icontains=query) |
+            Q(tags__name__icontains=query)
+        ).distinct()
+
+class TagPostListView(ListView):
+    model = Post
+    template_name = 'blog/tag_posts.html'
+
+    def get_queryset(self):
+        tag_name = self.kwargs['tag_name']
+        return Post.objects.filter(tags__name=tag_name)
