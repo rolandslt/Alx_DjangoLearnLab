@@ -90,3 +90,22 @@ This Django blog allows users to **create, read, update, and delete (CRUD) blog 
 ```bash
 python manage.py makemigrations
 python manage.py migrate
+
+
+## Comment System
+
+### Features
+- View all comments under a post.
+- Authenticated users can add, edit, or delete their comments.
+- Comment author has full control over their comments.
+- List of comments integrated into the post detail page.
+
+### URLs
+- `/posts/<post_id>/comments/new/` → Create a comment.
+- `/comments/<pk>/update/` → Edit a comment.
+- `/comments/<pk>/delete/` → Delete a comment.
+
+### Notes
+- Only logged-in users can post comments.
+- Only comment authors can edit or delete their comments.
+- Non-authenticated users can view all comments.
