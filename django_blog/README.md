@@ -47,3 +47,46 @@ This system enables user registration, login, logout, and profile management, pr
 1. **Install dependencies** (if not already):
    ```bash
    pip install Django
+
+
+# Django Blog – Blog Post Management
+
+## Features
+This Django blog allows users to **create, read, update, and delete (CRUD) blog posts** with proper access control.
+
+- **List all posts** – accessible to all users.  
+- **View individual post** – accessible to all users.  
+- **Create a post** – only authenticated users.  
+- **Edit/delete a post** – only the author of the post.
+
+---
+
+## Permissions & Access Control (Step 5)
+- `LoginRequiredMixin` ensures only logged-in users can create, edit, or delete posts.  
+- `UserPassesTestMixin` ensures only the author of a post can edit or delete it.  
+- List and detail views are accessible to everyone.
+
+---
+
+## Testing Guidelines (Step 6)
+- Test that **authenticated users** can create new posts.  
+- Test that **authors can edit/delete their posts**, and **others cannot**.  
+- Verify list and detail pages are accessible to non-logged-in users.  
+- Check that **form submissions** work correctly.  
+- Ensure all links (list, detail, create, edit, delete) are functional.
+
+---
+
+## Templates
+- `post_list.html` – displays all posts with links to details.  
+- `post_detail.html` – shows full content of a post with edit/delete links for authors.  
+- `post_form.html` – form for creating/editing posts.  
+- `post_confirm_delete.html` – confirmation page before deleting a post.
+
+---
+
+## Usage
+1. Run migrations:  
+```bash
+python manage.py makemigrations
+python manage.py migrate
