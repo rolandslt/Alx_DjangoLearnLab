@@ -8,10 +8,11 @@ from django.contrib import messages
 from django.shortcuts import get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from .models import Post , Comment, Tag
+from .models import Post , Comment
 from .forms import PostForm, CommentForm
 from django.views.generic import ListView
 from django.db.models import Q
+
 # Create your views here.
 # Profile form to edit username and email
 class UserProfileForm(forms.ModelForm):
