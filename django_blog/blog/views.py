@@ -12,6 +12,7 @@ from .models import Post , Comment
 from .forms import PostForm, CommentForm
 from django.views.generic import ListView
 from django.db.models import Q
+from taggit.models import Tag
 
 # Create your views here.
 # Profile form to edit username and email
@@ -141,3 +142,12 @@ class TagPostListView(ListView):
     def get_queryset(self):
         tag_name = self.kwargs['tag_name']
         return Post.objects.filter(tags__name=tag_name)
+
+class PostByTagListView(ListView):
+    model = Post
+    template_name = 'blog/post_by_tag.html'  # create this template
+    context_object_name = 'posts'
+
+    def get_queryset(self):
+        tag_slug = self.kwargs.get('tag_slug')
+        return Post.objects.filter(tags__slug=tag_slug).order_by('-created_at')
