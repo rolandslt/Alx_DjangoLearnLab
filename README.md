@@ -38,3 +38,11 @@ Endpoint         Method      Auth Required      Description
 /comments/        GET           No            List all comments.
 /comments/        POST          Yes           Add a comment to a specific post.
 /comments/{id}/   PATCH         Author Only   Partially update a comment.
+
+
+User Connections & Feed
+
+Endpoint                           Method  Auth,      Description
+/api/accounts/follow/{user_id}/     POST   Token       Follow a user by their ID.
+/api/accounts/unfollow/{user_id}/   POST   Token       Unfollow a user by their ID.
+/api/posts/feed/                    GET    Token       View posts from users you follow (Recent first).
