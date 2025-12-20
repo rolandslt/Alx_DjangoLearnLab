@@ -46,3 +46,12 @@ Endpoint                           Method  Auth,      Description
 /api/accounts/follow/{user_id}/     POST   Token       Follow a user by their ID.
 /api/accounts/unfollow/{user_id}/   POST   Token       Unfollow a user by their ID.
 /api/posts/feed/                    GET    Token       View posts from users you follow (Recent first).
+
+
+Engagement & Notifications
+
+
+Endpoint                Method   Auth        Description
+/api/posts/{id}/like/    POST    Token   Like a post and notify the author.
+/api/posts/{id}/unlike/  POST    Token   Remove a like from a post.
+/api/notifications/      GET     Token   "Get a list of all interactions (likes, follows)."
