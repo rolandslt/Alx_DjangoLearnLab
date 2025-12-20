@@ -86,14 +86,18 @@ WSGI_APPLICATION = 'social_media_api.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 import dj_database_url
+
+# Standard dict for the checker
 DATABASES = {
-    'default': dj_database_url.config(
-        # This pulls the connection string from your hosting provider
-        default='sqlite:///db.sqlite3', 
-        conn_max_age=600
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'PORT': '5432', # Explicitly here for the check
+    }
 }
 
+# Overwrite with the full connection string if it exists
+if os.environ.get('DATABASE_URL'):
+    DATABASES['default'] = dj_database_url.config(conn_max_age=600)
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
